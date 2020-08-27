@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>my redux</title>
+</head>
+
+<body>
+
+  <script type="module">
+    import { createStore, combineReducers, applyMiddleware } from './redux/index.js'
+    import infoReducer from './reducers/info.js'
+    import counterReducer from './reducers/counter.js'
+
+    // 增加中间件
+    import exceptiontimeMiddleware from './middlewares/exceptiontimeMiddleware.js'
+    import loggerMiddleware from './middlewares/loggerMiddleware.js'
+    import timeMiddleware from './middlewares/timeMiddleware.js'
+    
+    const reducer = combineReducers({
+      info: infoReducer,
+      counter: counterReducer
+    })
+
+    const rewriteCreateStoreFn = applyMiddleware(exceptiontimeMiddleware, timeMiddleware, loggerMiddleware)
+    const store = createStore(reducer, {}, rewriteCreateStoreFn)
+
+
+    store.subscribe(() => {
+      console.log(store.getState())
+    })
+
+    store.dispatch({
+      type: "INCREASE"
+    })
+    store.dispatch({
+      type: "INCREASE"
+    })
+
+    store.dispatch({
+      type: "SET_NAME",
+      name: '腾神'
+    })
+  </script>
+</body>
+
+</html>

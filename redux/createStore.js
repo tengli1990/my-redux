@@ -24,9 +24,10 @@ const createStore = function (reducer, initState, rewriteCreateStore) {
 
   function replaceReducer(newReducer) {
     reducer = newReducer
+    // 替换reducer之后需要进行重新初始化
     dispatch({ type: Symbol() })
   }
-
+  // 重新初始化数据结构及默认数据
   dispatch({ type: Symbol() })
 
   return {

@@ -18,6 +18,10 @@
     import exceptiontimeMiddleware from './middlewares/exceptiontimeMiddleware.js'
     import loggerMiddleware from './middlewares/loggerMiddleware.js'
     import timeMiddleware from './middlewares/timeMiddleware.js'
+
+    import bindActionCreators from './redux/bindActionCreators.js'
+    import { increment } from './actions/counter.js'
+    import { setName } from './actions/info.js'
     
     const reducer = combineReducers({
       info: infoReducer,
@@ -32,17 +36,21 @@
       console.log(store.getState())
     })
 
-    store.dispatch({
-      type: "INCREASE"
-    })
-    store.dispatch({
-      type: "INCREASE"
-    })
+    // store.dispatch({
+    //   type: "INCREASE"
+    // })
+    // store.dispatch({
+    //   type: "INCREASE"
+    // })
 
-    store.dispatch({
-      type: "SET_NAME",
-      name: '腾神'
-    })
+    // store.dispatch({
+    //   type: "SET_NAME",
+    //   name: '腾神'
+    // })
+    const actions = new bindActionCreators({ increment, setName }, store.dispatch)
+
+    actions.setName('你什么方式发呆')
+    actions.increment()
   </script>
 </body>
 

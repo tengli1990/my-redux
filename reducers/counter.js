@@ -7,12 +7,12 @@ export default function counterReducer(state,action){
     state = initState
   }
   switch(action.type){
-    case 'INCREASE':
+    case 'INCREMENT':
       return {
         ...state,
         count:++state.count
       }
-    case 'DECREASE':
+    case 'DECREMENT':
       return {
         ...state,
         count: --state.count
